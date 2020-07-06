@@ -1,0 +1,19 @@
+[package]
+name = "terra-bindings"
+version = "0.1.0"
+authors = ["Yun Yeo <YunSuk-Yeo@users.noreply.github.com>", "Ethan Frey <ethanfrey@users.noreply.github.com>"]
+edition = "2018"
+description = "Bindings for CosmWasm contracts to call into custom modules of Terra Core"
+repository = "https://github.com/terra-project/terra-cosmwasm-bindings"
+license = "Apache-2.0"
+readme = "README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cosmwasm-std = "0.9.2"
+schemars = "0.7"
+serde = { version = "1.0.103", default-features = false, features = ["derive"] }
+
+[dev-dependencies]
+cosmwasm-schema = { version = "0.9.2" }

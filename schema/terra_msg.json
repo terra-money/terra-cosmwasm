@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TerraMsg",
+  "anyOf": [
+    {
+      "type": "object",
+      "required": [
+        "swap"
+      ],
+      "properties": {
+        "swap": {
+          "type": "object",
+          "required": [
+            "ask_denom",
+            "offer_coin",
+            "trader"
+          ],
+          "properties": {
+            "ask_denom": {
+              "type": "string"
+            },
+            "offer_coin": {
+              "$ref": "#/definitions/Coin"
+            },
+            "trader": {
+              "$ref": "#/definitions/HumanAddr"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "swap_send"
+      ],
+      "properties": {
+        "swap_send": {
+          "type": "object",
+          "required": [
+            "ask_denom",
+            "from_address",
+            "offer_coin",
+            "to_address"
+          ],
+          "properties": {
+            "ask_denom": {
+              "type": "string"
+            },
+            "from_address": {
+              "$ref": "#/definitions/HumanAddr"
+            },
+            "offer_coin": {
+              "$ref": "#/definitions/Coin"
+            },
+            "to_address": {
+              "$ref": "#/definitions/HumanAddr"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "Coin": {
+      "type": "object",
+      "required": [
+        "amount",
+        "denom"
+      ],
+      "properties": {
+        "amount": {
+          "$ref": "#/definitions/Uint128"
+        },
+        "denom": {
+          "type": "string"
+        }
+      }
+    },
+    "HumanAddr": {
+      "type": "string"
+    },
+    "Uint128": {
+      "type": "string"
+    }
+  }
+}
