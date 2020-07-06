@@ -8,7 +8,7 @@ Add the following to your smart contract's `Cargo.toml`:
 ​
 ```toml
 [dependencies]
-terra_cosmwasm = { version = "1.0" }
+terra-cosmwasm = { version = "1.0" }
 ```
 ​
 ## Contents
@@ -35,7 +35,7 @@ In order to use the query functions enabled by the bindings, create a `TerraQuer
 ```rust
 // src/contract.rs
 use cosmwasm_std::Coin;
-use terra_bindings::TerraQuerier;
+use terra_cosmwasm::TerraQuerier;
 ​
 ...
 ​
