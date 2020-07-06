@@ -1,6 +1,6 @@
 [package]
 name = "terra-bindings"
-version = "0.1.1-alpha.0"
+version = "1.0.0"
 authors = ["Yun Yeo <YunSuk-Yeo@users.noreply.github.com>", "Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2018"
 description = "Bindings for CosmWasm contracts to call into custom modules of Terra Core"
