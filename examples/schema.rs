@@ -2,7 +2,7 @@ use std::env::current_dir;
 use std::fs::create_dir_all;
 
 use cosmwasm_schema::{export_schema, remove_schemas, schema_for};
-use terra_bindings::{
+use terra_cosmwasm::{
     SwapResponse, TaxCapResponse, TaxRateResponse, TerraMsg, TerraMsgWrapper, TerraQuery,
     TerraQueryWrapper,
 };

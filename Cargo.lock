@@ -18,9 +18,9 @@ dependencies = [
 
 [[package]]
 name = "cosmwasm-std"
-version = "0.9.2"
+version = "0.10.0-alpha2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "01b160c8e594deaf23599bfd20b38961d8b122b7218e8f30c8943590037d1b58"
+checksum = "f848da5f60e976ab84bd3e22b1570754a71af31e2a0a0df506b65edc282723c3"
 dependencies = [
  "base64",
  "schemars",
@@ -173,7 +173,7 @@ dependencies = [
 
 [[package]]
 name = "terra-cosmwasm"
-version = "1.0.0"
+version = "1.1.0-alpha"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
