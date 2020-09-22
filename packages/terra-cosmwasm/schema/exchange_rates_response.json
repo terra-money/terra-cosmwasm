@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExchangeRatesResponse",
+  "description": "ExchangeRatesResponse is data format returned from OracleRequest::ExchangeRates query",
+  "type": "object",
+  "required": [
+    "base_denom",
+    "exchange_rates"
+  ],
+  "properties": {
+    "base_denom": {
+      "type": "string"
+    },
+    "exchange_rates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ExchangeRateItem"
+      }
+    }
+  },
+  "definitions": {
+    "Decimal": {
+      "description": "A fixed-point decimal value with 18 fractional digits, i.e. Decimal(1_000_000_000_000_000_000) == 1.0\n\nThe greatest possible value that can be represented is 340282366920938463463.374607431768211455 (which is (2^128 - 1) / 10^18)",
+      "type": "string"
+    },
+    "ExchangeRateItem": {
+      "description": "ExchangeRateItem is data format returned from OracleRequest::ExchangeRates query",
+      "type": "object",
+      "required": [
+        "exchange_rate",
+        "quote_denom"
+      ],
+      "properties": {
+        "exchange_rate": {
+          "$ref": "#/definitions/Decimal"
+        },
+        "quote_denom": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

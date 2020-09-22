@@ -12,7 +12,7 @@
       "$ref": "#/definitions/TerraQuery"
     },
     "route": {
-      "type": "string"
+      "$ref": "#/definitions/TerraRoute"
     }
   },
   "definitions": {
@@ -86,7 +86,42 @@
               }
             }
           }
+        },
+        {
+          "type": "object",
+          "required": [
+            "exchange_rates"
+          ],
+          "properties": {
+            "exchange_rates": {
+              "type": "object",
+              "required": [
+                "base_denom",
+                "quote_denoms"
+              ],
+              "properties": {
+                "base_denom": {
+                  "type": "string"
+                },
+                "quote_denoms": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
         }
+      ]
+    },
+    "TerraRoute": {
+      "description": "TerraRoute is enum type to represent terra query route path",
+      "type": "string",
+      "enum": [
+        "market",
+        "treasury",
+        "oracle"
       ]
     },
     "Uint128": {

@@ -1,15 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "TerraQuery",
-  "description": "TerraQuery is defines avaliable query datas",
+  "title": "HandleMsg",
   "anyOf": [
     {
       "type": "object",
       "required": [
-        "swap"
+        "msg_swap"
       ],
       "properties": {
-        "swap": {
+        "msg_swap": {
           "type": "object",
           "required": [
             "ask_denom",
@@ -29,28 +28,25 @@
     {
       "type": "object",
       "required": [
-        "tax_rate"
+        "msg_swap_send"
       ],
       "properties": {
-        "tax_rate": {
-          "type": "object"
-        }
-      }
-    },
-    {
-      "type": "object",
-      "required": [
-        "tax_cap"
-      ],
-      "properties": {
-        "tax_cap": {
+        "msg_swap_send": {
           "type": "object",
           "required": [
-            "denom"
+            "ask_denom",
+            "offer_coin",
+            "recipient"
           ],
           "properties": {
-            "denom": {
+            "ask_denom": {
               "type": "string"
+            },
+            "offer_coin": {
+              "$ref": "#/definitions/Coin"
+            },
+            "recipient": {
+              "$ref": "#/definitions/HumanAddr"
             }
           }
         }
@@ -72,6 +68,9 @@
           "type": "string"
         }
       }
+    },
+    "HumanAddr": {
+      "type": "string"
     },
     "Uint128": {
       "type": "string"

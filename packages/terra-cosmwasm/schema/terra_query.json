@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TerraQuery",
+  "description": "TerraQuery is defines avaliable query datas",
+  "anyOf": [
+    {
+      "type": "object",
+      "required": [
+        "swap"
+      ],
+      "properties": {
+        "swap": {
+          "type": "object",
+          "required": [
+            "ask_denom",
+            "offer_coin"
+          ],
+          "properties": {
+            "ask_denom": {
+              "type": "string"
+            },
+            "offer_coin": {
+              "$ref": "#/definitions/Coin"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "tax_rate"
+      ],
+      "properties": {
+        "tax_rate": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "tax_cap"
+      ],
+      "properties": {
+        "tax_cap": {
+          "type": "object",
+          "required": [
+            "denom"
+          ],
+          "properties": {
+            "denom": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "exchange_rates"
+      ],
+      "properties": {
+        "exchange_rates": {
+          "type": "object",
+          "required": [
+            "base_denom",
+            "quote_denoms"
+          ],
+          "properties": {
+            "base_denom": {
+              "type": "string"
+            },
+            "quote_denoms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "Coin": {
+      "type": "object",
+      "required": [
+        "amount",
+        "denom"
+      ],
+      "properties": {
+        "amount": {
+          "$ref": "#/definitions/Uint128"
+        },
+        "denom": {
+          "type": "string"
+        }
+      }
+    },
+    "Uint128": {
+      "type": "string"
+    }
+  }
+}
