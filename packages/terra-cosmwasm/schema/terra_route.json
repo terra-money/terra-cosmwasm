@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TerraRoute",
+  "description": "TerraRoute is enum type to represent terra query route path",
+  "type": "string",
+  "enum": [
+    "market",
+    "treasury",
+    "oracle"
+  ]
+}
