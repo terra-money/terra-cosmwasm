@@ -2,15 +2,7 @@ use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 use cosmwasm_std::{Coin, Decimal, QueryRequest, Uint128};
-
-/// TerraRoute is enum type to represent terra query route path
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-#[serde(rename_all = "snake_case")]
-pub enum TerraRoute {
-    Market,
-    Treasury,
-    Oracle,
-}
+use crate::route::TerraRoute;
 
 /// TerraQueryWrapper is an override of QueryRequest::Custom to access Terra-specific modules
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]

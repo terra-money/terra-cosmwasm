@@ -2,12 +2,13 @@ use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 use cosmwasm_std::{Coin, CosmosMsg, HumanAddr};
+use crate::route::TerraRoute;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
 /// TerraMsgWrapper is an override of CosmosMsg::Custom to show this works and can be extended in the contract
 pub struct TerraMsgWrapper {
-    pub route: String,
+    pub route: TerraRoute,
     pub msg_data: TerraMsg,
 }
 
@@ -41,7 +42,7 @@ pub fn create_swap_msg(
     ask_denom: String,
 ) -> CosmosMsg<TerraMsgWrapper> {
     TerraMsgWrapper {
-        route: "market".to_string(),
+        route: TerraRoute::Market,
         msg_data: TerraMsg::Swap {
             trader,
             offer_coin,
@@ -59,7 +60,7 @@ pub fn create_swap_send_msg(
     ask_denom: String,
 ) -> CosmosMsg<TerraMsgWrapper> {
     TerraMsgWrapper {
-        route: "market".to_string(),
+        route: TerraRoute::Market,
         msg_data: TerraMsg::SwapSend {
             from_address,
             to_address,

@@ -1,8 +1,9 @@
 use cosmwasm_std::{Coin, Querier, StdResult};
 
+use crate::route::TerraRoute;
 use crate::query::{
     ExchangeRatesResponse, SwapResponse, TaxCapResponse, TaxRateResponse, TerraQuery,
-    TerraQueryWrapper, TerraRoute,
+    TerraQueryWrapper,
 };
 
 /// This is a helper wrapper to easily use our custom queries

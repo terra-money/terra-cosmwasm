@@ -12,7 +12,7 @@
       "$ref": "#/definitions/TerraMsg"
     },
     "route": {
-      "type": "string"
+      "$ref": "#/definitions/TerraRoute"
     }
   },
   "definitions": {
@@ -94,6 +94,15 @@
             }
           }
         }
+      ]
+    },
+    "TerraRoute": {
+      "description": "TerraRoute is enum type to represent terra query route path",
+      "type": "string",
+      "enum": [
+        "market",
+        "treasury",
+        "oracle"
       ]
     },
     "Uint128": {
