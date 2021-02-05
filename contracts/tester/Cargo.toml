@@ -1,6 +1,6 @@
 [package]
 name = "bindings-tester"
-version = "1.2.0"
+version = "1.3.0"
 authors = ["Yun Yeo <YunSuk-Yeo@users.noreply.github.com>"]
 edition = "2018"
 description = "simple tester for terra-cosmwasm-bindings"
@@ -18,14 +18,14 @@ backtraces = ["cosmwasm-std/backtraces"]
 library = []
 
 [dependencies]
-terra-cosmwasm = { path = "../../packages/terra-cosmwasm", version = "1.2.0" }
-cosmwasm-std = { version = "0.10.1", features = ["iterator"] }
-cosmwasm-storage = { version = "0.10.1", features = ["iterator"] }
+terra-cosmwasm = { path = "../../packages/terra-cosmwasm" }
+cosmwasm-std = { version = "0.13.0", features = ["iterator"] }
+cosmwasm-storage = { version = "0.13.0", features = ["iterator"] }
 schemars = "0.7"
 serde = { version = "1.0.103", default-features = false, features = ["derive"] }
 snafu = { version = "0.6.3" }
 
 [dev-dependencies]
 # we only need to enable this if we use integration tests
-#cosmwasm-vm = { version = "0.10.1", default-features = false }
-cosmwasm-schema = { version = "0.10.1" }
+#cosmwasm-vm = { version = "0.13.0", default-features = false }
+cosmwasm-schema = { version = "0.13.0" }
