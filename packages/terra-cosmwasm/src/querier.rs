@@ -1,4 +1,4 @@
-use cosmwasm_std::{Coin, Querier, StdResult};
+use cosmwasm_std::{Coin, QuerierWrapper, StdResult};
 
 use crate::route::TerraRoute;
 use crate::query::{
@@ -7,13 +7,15 @@ use crate::query::{
 };
 
 /// This is a helper wrapper to easily use our custom queries
-pub struct TerraQuerier<'a, Q: Querier> {
-    querier: &'a Q,
+pub struct TerraQuerier<'a> {
+    querier: &'a QuerierWrapper<'a>,
 }
 
-impl<'a, Q: Querier> TerraQuerier<'a, Q> {
-    pub fn new(querier: &'a Q) -> Self {
-        TerraQuerier { querier }
+impl<'a> TerraQuerier<'a> {
+    pub fn new(querier: &'a QuerierWrapper) -> Self {
+        TerraQuerier {  
+            querier,
+        }
     }
 
     pub fn query_swap<T: Into<String>>(
@@ -28,6 +30,7 @@ impl<'a, Q: Querier> TerraQuerier<'a, Q> {
                 ask_denom: ask_denom.into(),
             },
         };
+        
         let res: SwapResponse = self.querier.custom_query(&request.into())?;
         Ok(res)
     }
@@ -39,6 +42,7 @@ impl<'a, Q: Querier> TerraQuerier<'a, Q> {
                 denom: denom.into(),
             },
         };
+        
         let res: TaxCapResponse = self.querier.custom_query(&request.into())?;
         Ok(res)
     }
@@ -48,6 +52,7 @@ impl<'a, Q: Querier> TerraQuerier<'a, Q> {
             route: TerraRoute::Treasury,
             query_data: TerraQuery::TaxRate {},
         };
+        //let wrapper = QuerierWrapper::new(self.querier);
         let res: TaxRateResponse = self.querier.custom_query(&request.into())?;
         Ok(res)
     }
@@ -64,7 +69,7 @@ impl<'a, Q: Querier> TerraQuerier<'a, Q> {
                 quote_denoms: quote_denoms.into_iter().map(|x| x.into()).collect(),
             },
         };
-
+        
         let res: ExchangeRatesResponse = self.querier.custom_query(&request.into())?;
         Ok(res)
     }
