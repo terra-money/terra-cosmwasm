@@ -304,7 +304,7 @@ dependencies = [
 
 [[package]]
 name = "terra-cosmwasm"
-version = "1.2.3"
+version = "1.2.4"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
