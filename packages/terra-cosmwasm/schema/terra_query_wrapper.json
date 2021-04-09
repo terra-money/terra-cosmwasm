@@ -32,7 +32,7 @@
       }
     },
     "TerraQuery": {
-      "description": "TerraQuery is defines avaliable query datas",
+      "description": "TerraQuery is defines available query datas",
       "anyOf": [
         {
           "type": "object",
@@ -55,7 +55,8 @@
                 }
               }
             }
-          }
+          },
+          "additionalProperties": false
         },
         {
           "type": "object",
@@ -66,7 +67,8 @@
             "tax_rate": {
               "type": "object"
             }
-          }
+          },
+          "additionalProperties": false
         },
         {
           "type": "object",
@@ -85,7 +87,8 @@
                 }
               }
             }
-          }
+          },
+          "additionalProperties": false
         },
         {
           "type": "object",
@@ -111,7 +114,8 @@
                 }
               }
             }
-          }
+          },
+          "additionalProperties": false
         }
       ]
     },

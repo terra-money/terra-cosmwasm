@@ -1,18 +1,18 @@
-use cosmwasm_std::{Coin, Querier, StdResult};
+use cosmwasm_std::{Coin, QuerierWrapper, StdResult};
 
-use crate::route::TerraRoute;
 use crate::query::{
     ExchangeRatesResponse, SwapResponse, TaxCapResponse, TaxRateResponse, TerraQuery,
     TerraQueryWrapper,
 };
+use crate::route::TerraRoute;
 
 /// This is a helper wrapper to easily use our custom queries
-pub struct TerraQuerier<'a, Q: Querier> {
-    querier: &'a Q,
+pub struct TerraQuerier<'a> {
+    querier: &'a QuerierWrapper<'a>,
 }
 
-impl<'a, Q: Querier> TerraQuerier<'a, Q> {
-    pub fn new(querier: &'a Q) -> Self {
+impl<'a> TerraQuerier<'a> {
+    pub fn new(querier: &'a QuerierWrapper<'a>) -> Self {
         TerraQuerier { querier }
     }
 
@@ -27,9 +27,10 @@ impl<'a, Q: Querier> TerraQuerier<'a, Q> {
                 offer_coin,
                 ask_denom: ask_denom.into(),
             },
-        };
-        let res: SwapResponse = self.querier.custom_query(&request.into())?;
-        Ok(res)
+        }
+        .into();
+
+        self.querier.custom_query(&request)
     }
 
     pub fn query_tax_cap<T: Into<String>>(&self, denom: T) -> StdResult<TaxCapResponse> {
@@ -38,18 +39,20 @@ impl<'a, Q: Querier> TerraQuerier<'a, Q> {
             query_data: TerraQuery::TaxCap {
                 denom: denom.into(),
             },
-        };
-        let res: TaxCapResponse = self.querier.custom_query(&request.into())?;
-        Ok(res)
+        }
+        .into();
+
+        self.querier.custom_query(&request)
     }
 
     pub fn query_tax_rate(&self) -> StdResult<TaxRateResponse> {
         let request = TerraQueryWrapper {
             route: TerraRoute::Treasury,
             query_data: TerraQuery::TaxRate {},
-        };
-        let res: TaxRateResponse = self.querier.custom_query(&request.into())?;
-        Ok(res)
+        }
+        .into();
+
+        self.querier.custom_query(&request)
     }
 
     pub fn query_exchange_rates<T: Into<String>>(
@@ -63,9 +66,9 @@ impl<'a, Q: Querier> TerraQuerier<'a, Q> {
                 base_denom: base_denom.into(),
                 quote_denoms: quote_denoms.into_iter().map(|x| x.into()).collect(),
             },
-        };
+        }
+        .into();
 
-        let res: ExchangeRatesResponse = self.querier.custom_query(&request.into())?;
-        Ok(res)
+        self.querier.custom_query(&request)
     }
 }

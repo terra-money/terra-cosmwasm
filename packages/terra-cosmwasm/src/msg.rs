@@ -1,8 +1,8 @@
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
-use cosmwasm_std::{Coin, CosmosMsg, HumanAddr};
 use crate::route::TerraRoute;
+use cosmwasm_std::{Addr, Coin, CosmosMsg};
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
@@ -13,9 +13,9 @@ pub struct TerraMsgWrapper {
 }
 
 // this is a helper to be able to return these as CosmosMsg easier
-impl Into<CosmosMsg<TerraMsgWrapper>> for TerraMsgWrapper {
-    fn into(self) -> CosmosMsg<TerraMsgWrapper> {
-        CosmosMsg::Custom(self)
+impl From<TerraMsgWrapper> for CosmosMsg<TerraMsgWrapper> {
+    fn from(original: TerraMsgWrapper) -> Self {
+        CosmosMsg::Custom(original)
     }
 }
 
@@ -23,13 +23,13 @@ impl Into<CosmosMsg<TerraMsgWrapper>> for TerraMsgWrapper {
 #[serde(rename_all = "snake_case")]
 pub enum TerraMsg {
     Swap {
-        trader: HumanAddr,
+        trader: Addr,
         offer_coin: Coin,
         ask_denom: String,
     },
     SwapSend {
-        from_address: HumanAddr,
-        to_address: HumanAddr,
+        from_address: Addr,
+        to_address: Addr,
         offer_coin: Coin,
         ask_denom: String,
     },
@@ -37,7 +37,7 @@ pub enum TerraMsg {
 
 // create_swap_msg returns wrapped swap msg
 pub fn create_swap_msg(
-    trader: HumanAddr,
+    trader: Addr,
     offer_coin: Coin,
     ask_denom: String,
 ) -> CosmosMsg<TerraMsgWrapper> {
@@ -54,8 +54,8 @@ pub fn create_swap_msg(
 
 // create_swap_send_msg returns wrapped swap send msg
 pub fn create_swap_send_msg(
-    from_address: HumanAddr,
-    to_address: HumanAddr,
+    from_address: Addr,
+    to_address: Addr,
     offer_coin: Coin,
     ask_denom: String,
 ) -> CosmosMsg<TerraMsgWrapper> {

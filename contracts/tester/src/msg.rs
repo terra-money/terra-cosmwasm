@@ -1,13 +1,13 @@
-use cosmwasm_std::{Coin, HumanAddr};
+use cosmwasm_std::{Addr, Coin};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, JsonSchema)]
-pub struct InitMsg {}
+pub struct InstantiateMsg {}
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
-pub enum HandleMsg {
+pub enum ExecuteMsg {
     MsgSwap {
         offer_coin: Coin,
         ask_denom: String,
@@ -15,7 +15,7 @@ pub enum HandleMsg {
     MsgSwapSend {
         offer_coin: Coin,
         ask_denom: String,
-        recipient: HumanAddr,
+        recipient: Addr,
     },
 }
 

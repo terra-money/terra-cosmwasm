@@ -1,65 +1,64 @@
 use cosmwasm_std::{
-    to_binary, Api, Binary, Coin, Env, Extern, HandleResponse, HumanAddr, InitResponse, Querier,
-    StdResult, Storage,
+    to_binary, Addr, Coin, Deps, DepsMut, Env, MessageInfo, QueryResponse, Response, StdError,
+    StdResult,
 };
 
-use crate::msg::{HandleMsg, InitMsg, QueryMsg};
+use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 use terra_cosmwasm::{
     create_swap_msg, create_swap_send_msg, ExchangeRatesResponse, SwapResponse, TaxCapResponse,
     TaxRateResponse, TerraMsgWrapper, TerraQuerier,
 };
 
-pub fn init<S: Storage, A: Api, Q: Querier>(
-    _deps: &mut Extern<S, A, Q>,
+pub fn instantiate(
+    _deps: DepsMut,
     _env: Env,
-    _msg: InitMsg,
-) -> StdResult<InitResponse> {
-    Ok(InitResponse::default())
+    _info: MessageInfo,
+    _msg: InstantiateMsg,
+) -> StdResult<Response<TerraMsgWrapper>> {
+    Ok(Response::new())
 }
 
-pub fn handle<S: Storage, A: Api, Q: Querier>(
-    deps: &mut Extern<S, A, Q>,
+pub fn execute(
+    deps: DepsMut,
     env: Env,
-    msg: HandleMsg,
-) -> StdResult<HandleResponse<TerraMsgWrapper>> {
+    info: MessageInfo,
+    msg: ExecuteMsg,
+) -> Result<Response<TerraMsgWrapper>, StdError> {
     match msg {
-        HandleMsg::MsgSwap {
+        ExecuteMsg::MsgSwap {
             offer_coin,
             ask_denom,
-        } => handle_msg_swap(deps, env, offer_coin, ask_denom, None),
-        HandleMsg::MsgSwapSend {
+        } => execute_msg_swap(deps, env, info, offer_coin, ask_denom, None),
+        ExecuteMsg::MsgSwapSend {
             offer_coin,
             ask_denom,
             recipient,
-        } => handle_msg_swap(deps, env, offer_coin, ask_denom, Some(recipient)),
+        } => execute_msg_swap(deps, env, info, offer_coin, ask_denom, Some(recipient)),
     }
 }
 
-pub fn handle_msg_swap<S: Storage, A: Api, Q: Querier>(
-    _deps: &mut Extern<S, A, Q>,
-    env: Env,
+pub fn execute_msg_swap(
+    _deps: DepsMut,
+    _env: Env,
+    info: MessageInfo,
     offer_coin: Coin,
     ask_denom: String,
-    recipient: Option<HumanAddr>,
-) -> StdResult<HandleResponse<TerraMsgWrapper>> {
+    recipient: Option<Addr>,
+) -> StdResult<Response<TerraMsgWrapper>> {
     let msg = if let Some(recipient) = recipient {
-        create_swap_send_msg(env.message.sender, recipient, offer_coin, ask_denom)
+        create_swap_send_msg(info.sender, recipient, offer_coin, ask_denom)
     } else {
-        create_swap_msg(env.message.sender, offer_coin, ask_denom)
+        create_swap_msg(info.sender, offer_coin, ask_denom)
     };
 
-    let res = HandleResponse {
+    let res = Response {
         messages: vec![msg],
-        log: vec![],
-        data: None,
+        ..Response::default()
     };
     Ok(res)
 }
 
-pub fn query<S: Storage, A: Api, Q: Querier>(
-    deps: &Extern<S, A, Q>,
-    msg: QueryMsg,
-) -> StdResult<Binary> {
+pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<QueryResponse> {
     match msg {
         QueryMsg::Swap {
             offer_coin,
@@ -74,38 +73,29 @@ pub fn query<S: Storage, A: Api, Q: Querier>(
     }
 }
 
-pub fn query_swap<S: Storage, A: Api, Q: Querier>(
-    deps: &Extern<S, A, Q>,
-    offer_coin: Coin,
-    ask_denom: String,
-) -> StdResult<SwapResponse> {
+pub fn query_swap(deps: Deps, offer_coin: Coin, ask_denom: String) -> StdResult<SwapResponse> {
     let querier = TerraQuerier::new(&deps.querier);
     let res: SwapResponse = querier.query_swap(offer_coin, ask_denom)?;
 
     Ok(res)
 }
 
-pub fn query_tax_rate<S: Storage, A: Api, Q: Querier>(
-    deps: &Extern<S, A, Q>,
-) -> StdResult<TaxRateResponse> {
+pub fn query_tax_rate(deps: Deps) -> StdResult<TaxRateResponse> {
     let querier = TerraQuerier::new(&deps.querier);
     let res: TaxRateResponse = querier.query_tax_rate()?;
 
     Ok(res)
 }
 
-pub fn query_tax_cap<S: Storage, A: Api, Q: Querier>(
-    deps: &Extern<S, A, Q>,
-    denom: String,
-) -> StdResult<TaxCapResponse> {
+pub fn query_tax_cap(deps: Deps, denom: String) -> StdResult<TaxCapResponse> {
     let querier = TerraQuerier::new(&deps.querier);
     let res: TaxCapResponse = querier.query_tax_cap(denom)?;
 
     Ok(res)
 }
 
-pub fn query_exchange_rates<S: Storage, A: Api, Q: Querier>(
-    deps: &Extern<S, A, Q>,
+pub fn query_exchange_rates(
+    deps: Deps,
     base_denom: String,
     quote_denoms: Vec<String>,
 ) -> StdResult<ExchangeRatesResponse> {
