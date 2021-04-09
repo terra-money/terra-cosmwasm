@@ -15,7 +15,7 @@ documentation = "https://docs.terra.money"
 backtraces = ["cosmwasm-std/backtraces"]
 
 [dependencies]
-cosmwasm-std = "0.14.0-beta1"
+cosmwasm-std = "0.14.0-beta2"
 bigint = "4"
 schemars = "0.7"
 serde = { version = "1.0.103", default-features = false, features = ["derive"] }
