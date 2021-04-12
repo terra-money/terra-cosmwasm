@@ -40,15 +40,15 @@ pub fn execute(
 pub fn execute_msg_swap(
     _deps: DepsMut,
     _env: Env,
-    info: MessageInfo,
+    _info: MessageInfo,
     offer_coin: Coin,
     ask_denom: String,
     recipient: Option<Addr>,
 ) -> StdResult<Response<TerraMsgWrapper>> {
     let msg = if let Some(recipient) = recipient {
-        create_swap_send_msg(info.sender, recipient, offer_coin, ask_denom)
+        create_swap_send_msg(recipient, offer_coin, ask_denom)
     } else {
-        create_swap_msg(info.sender, offer_coin, ask_denom)
+        create_swap_msg(offer_coin, ask_denom)
     };
 
     let res = Response {

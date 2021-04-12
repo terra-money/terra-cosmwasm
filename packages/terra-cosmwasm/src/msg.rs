@@ -23,12 +23,10 @@ impl From<TerraMsgWrapper> for CosmosMsg<TerraMsgWrapper> {
 #[serde(rename_all = "snake_case")]
 pub enum TerraMsg {
     Swap {
-        trader: Addr,
         offer_coin: Coin,
         ask_denom: String,
     },
     SwapSend {
-        from_address: Addr,
         to_address: Addr,
         offer_coin: Coin,
         ask_denom: String,
@@ -36,15 +34,10 @@ pub enum TerraMsg {
 }
 
 // create_swap_msg returns wrapped swap msg
-pub fn create_swap_msg(
-    trader: Addr,
-    offer_coin: Coin,
-    ask_denom: String,
-) -> CosmosMsg<TerraMsgWrapper> {
+pub fn create_swap_msg(offer_coin: Coin, ask_denom: String) -> CosmosMsg<TerraMsgWrapper> {
     TerraMsgWrapper {
         route: TerraRoute::Market,
         msg_data: TerraMsg::Swap {
-            trader,
             offer_coin,
             ask_denom,
         },
@@ -54,7 +47,6 @@ pub fn create_swap_msg(
 
 // create_swap_send_msg returns wrapped swap send msg
 pub fn create_swap_send_msg(
-    from_address: Addr,
     to_address: Addr,
     offer_coin: Coin,
     ask_denom: String,
@@ -62,7 +54,6 @@ pub fn create_swap_send_msg(
     TerraMsgWrapper {
         route: TerraRoute::Market,
         msg_data: TerraMsg::SwapSend {
-            from_address,
             to_address,
             offer_coin,
             ask_denom,
