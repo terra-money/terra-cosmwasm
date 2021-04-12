@@ -46,7 +46,7 @@ pub fn execute_msg_swap(
     recipient: Option<Addr>,
 ) -> StdResult<Response<TerraMsgWrapper>> {
     let msg = if let Some(recipient) = recipient {
-        create_swap_send_msg(recipient, offer_coin, ask_denom)
+        create_swap_send_msg(recipient.to_string(), offer_coin, ask_denom)
     } else {
         create_swap_msg(offer_coin, ask_denom)
     };

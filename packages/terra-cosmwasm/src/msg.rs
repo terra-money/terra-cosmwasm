@@ -2,7 +2,7 @@ use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 use crate::route::TerraRoute;
-use cosmwasm_std::{Addr, Coin, CosmosMsg};
+use cosmwasm_std::{Coin, CosmosMsg};
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
@@ -27,7 +27,7 @@ pub enum TerraMsg {
         ask_denom: String,
     },
     SwapSend {
-        to_address: Addr,
+        to_address: String,
         offer_coin: Coin,
         ask_denom: String,
     },
@@ -47,7 +47,7 @@ pub fn create_swap_msg(offer_coin: Coin, ask_denom: String) -> CosmosMsg<TerraMs
 
 // create_swap_send_msg returns wrapped swap send msg
 pub fn create_swap_send_msg(
-    to_address: Addr,
+    to_address: String,
     offer_coin: Coin,
     ask_denom: String,
 ) -> CosmosMsg<TerraMsgWrapper> {
