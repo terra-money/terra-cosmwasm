@@ -1,6 +1,6 @@
 use cosmwasm_std::{
     to_binary, Addr, Coin, Deps, DepsMut, Env, MessageInfo, QueryResponse, Response, StdError,
-    StdResult,
+    StdResult, SubMsg,
 };
 
 use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
@@ -52,7 +52,7 @@ pub fn execute_msg_swap(
     };
 
     let res = Response {
-        messages: vec![msg],
+        messages: vec![SubMsg::new(msg)],
         ..Response::default()
     };
     Ok(res)
