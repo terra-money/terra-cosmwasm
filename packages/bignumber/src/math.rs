@@ -238,6 +238,12 @@ impl From<U256> for Uint256 {
     }
 }
 
+impl From<Uint256> for U256 {
+    fn from(val: Uint256) -> Self {
+        val.0
+    }
+}
+
 #[inline(always)]
 fn split_u128(a: u128) -> (u64, u64) {
     ((a >> 64) as _, (a & 0xFFFFFFFFFFFFFFFF) as _)
