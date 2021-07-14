@@ -70,7 +70,7 @@ checksum = "9f6b64db6932c7e49332728e3a6bd82c6b7e16016607d20923b537c3bc4c0d5f"
 
 [[package]]
 name = "cosmwasm-bignumber"
-version = "2.1.0"
+version = "2.1.1"
 dependencies = [
  "bigint",
  "cosmwasm-schema",
