@@ -1,12 +1,12 @@
 use cosmwasm_std::{
     to_binary, Addr, Coin, Deps, DepsMut, Env, MessageInfo, QueryResponse, Response, StdError,
-    StdResult, SubMsg,
+    StdResult,
 };
 
 use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 use terra_cosmwasm::{
-    create_swap_msg, create_swap_send_msg, ExchangeRatesResponse, SwapResponse, TaxCapResponse,
-    TaxRateResponse, TerraMsgWrapper, TerraQuerier,
+    create_swap_msg, create_swap_send_msg, ContractInfoResponse, ExchangeRatesResponse,
+    SwapResponse, TaxCapResponse, TaxRateResponse, TerraMsgWrapper, TerraQuerier,
 };
 
 pub fn instantiate(
@@ -51,11 +51,7 @@ pub fn execute_msg_swap(
         create_swap_msg(offer_coin, ask_denom)
     };
 
-    let res = Response {
-        messages: vec![SubMsg::new(msg)],
-        ..Response::default()
-    };
-    Ok(res)
+    Ok(Response::new().add_message(msg))
 }
 
 pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<QueryResponse> {
@@ -70,6 +66,9 @@ pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<QueryResponse> {
             base_denom,
             quote_denoms,
         } => to_binary(&query_exchange_rates(deps, base_denom, quote_denoms)?),
+        QueryMsg::ContractInfo { contract_address } => {
+            to_binary(&query_contract_info(deps, contract_address)?)
+        }
     }
 }
 
@@ -101,6 +100,16 @@ pub fn query_exchange_rates(
 ) -> StdResult<ExchangeRatesResponse> {
     let querier = TerraQuerier::new(&deps.querier);
     let res: ExchangeRatesResponse = querier.query_exchange_rates(base_denom, quote_denoms)?;
+
+    Ok(res)
+}
+
+pub fn query_contract_info(
+    deps: Deps,
+    contract_address: String,
+) -> StdResult<ContractInfoResponse> {
+    let querier = TerraQuerier::new(&deps.querier);
+    let res: ContractInfoResponse = querier.query_contract_info(contract_address)?;
 
     Ok(res)
 }

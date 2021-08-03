@@ -1,6 +1,6 @@
 [package]
 name = "cosmwasm-bignumber"
-version = "2.1.1"
+version = "2.2.0-rc2"
 authors = ["Terraform Labs, PTE."]
 edition = "2018"
 description = "Bignumber library for cosmwasm project"
@@ -15,10 +15,10 @@ documentation = "https://docs.terra.money"
 backtraces = ["cosmwasm-std/backtraces"]
 
 [dependencies]
-cosmwasm-std = "0.15.0"
+cosmwasm-std = "0.16.0-rc2"
 bigint = "4"
 schemars = "0.8.1"
 serde = { version = "1.0.103", default-features = false, features = ["derive"] }
 
 [dev-dependencies]
-cosmwasm-schema = "0.15.0"
+cosmwasm-schema = "0.16.0-rc2"

@@ -1,1 +1,1 @@
-e762265f7ae5c0470fa990759d505f8aacb8a78dbe24b144934bec8a415525ae  bindings_tester.wasm
+46070fe19138ec4d6bbfda0488648385368952babae7c4f5f65d7dd163e49e8f  bindings_tester.wasm

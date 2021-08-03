@@ -31,6 +31,9 @@ pub enum TerraQuery {
         base_denom: String,
         quote_denoms: Vec<String>,
     },
+    ContractInfo {
+        contract_address: String,
+    },
 }
 
 /// SwapResponse is data format returned from SwapRequest::Simulate query
@@ -63,4 +66,13 @@ pub struct ExchangeRateItem {
 pub struct ExchangeRatesResponse {
     pub base_denom: String,
     pub exchange_rates: Vec<ExchangeRateItem>,
+}
+
+/// ContractInfoResponse is data format returned from WasmRequest::ContractInfo query
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct ContractInfoResponse {
+    pub address: String,
+    pub creator: String,
+    pub code_id: u64,
+    pub admin: Option<String>,
 }

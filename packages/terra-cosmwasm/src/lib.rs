@@ -6,8 +6,8 @@ mod route;
 pub use msg::{create_swap_msg, create_swap_send_msg, TerraMsg, TerraMsgWrapper};
 pub use querier::TerraQuerier;
 pub use query::{
-    ExchangeRateItem, ExchangeRatesResponse, SwapResponse, TaxCapResponse, TaxRateResponse,
-    TerraQuery, TerraQueryWrapper,
+    ContractInfoResponse, ExchangeRateItem, ExchangeRatesResponse, SwapResponse, TaxCapResponse,
+    TaxRateResponse, TerraQuery, TerraQueryWrapper,
 };
 pub use route::TerraRoute;
 

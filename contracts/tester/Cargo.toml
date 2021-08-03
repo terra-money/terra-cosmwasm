@@ -17,9 +17,9 @@ backtraces = ["cosmwasm-std/backtraces"]
 library = []
 
 [dependencies]
-terra-cosmwasm = { path = "../../packages/terra-cosmwasm", version = "2.1.0" }
-cosmwasm-std = { version = "0.15.0", features = ["iterator"] }
-cosmwasm-storage = { version = "0.15.0", features = ["iterator"] }
+terra-cosmwasm = { path = "../../packages/terra-cosmwasm", version = "2.2.0-rc2" }
+cosmwasm-std = { version = "0.16.0-rc2" }
+cosmwasm-storage = { version = "0.16.0-rc2" }
 schemars = "0.8.1"
 serde = { version = "1.0.103", default-features = false, features = ["derive"] }
 snafu = { version = "0.6.3" }
@@ -27,4 +27,4 @@ thiserror = "1.0"
 
 [dev-dependencies]
 # we only need to enable this if we use integration tests
-cosmwasm-schema = { version = "0.15.0" }
+cosmwasm-schema = { version = "0.16.0-rc2" }

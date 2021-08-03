@@ -34,4 +34,7 @@ pub enum QueryMsg {
         base_denom: String,
         quote_denoms: Vec<String>,
     },
+    ContractInfo {
+        contract_address: String,
+    },
 }

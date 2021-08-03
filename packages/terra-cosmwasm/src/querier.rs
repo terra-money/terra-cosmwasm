@@ -1,8 +1,8 @@
 use cosmwasm_std::{Coin, QuerierWrapper, StdResult};
 
 use crate::query::{
-    ExchangeRatesResponse, SwapResponse, TaxCapResponse, TaxRateResponse, TerraQuery,
-    TerraQueryWrapper,
+    ContractInfoResponse, ExchangeRatesResponse, SwapResponse, TaxCapResponse, TaxRateResponse,
+    TerraQuery, TerraQueryWrapper,
 };
 use crate::route::TerraRoute;
 
@@ -65,6 +65,21 @@ impl<'a> TerraQuerier<'a> {
             query_data: TerraQuery::ExchangeRates {
                 base_denom: base_denom.into(),
                 quote_denoms: quote_denoms.into_iter().map(|x| x.into()).collect(),
+            },
+        }
+        .into();
+
+        self.querier.custom_query(&request)
+    }
+
+    pub fn query_contract_info<T: Into<String>>(
+        &self,
+        contract_address: T,
+    ) -> StdResult<ContractInfoResponse> {
+        let request = TerraQueryWrapper {
+            route: TerraRoute::Wasm,
+            query_data: TerraQuery::ContractInfo {
+                contract_address: contract_address.into(),
             },
         }
         .into();

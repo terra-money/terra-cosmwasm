@@ -8,4 +8,5 @@ pub enum TerraRoute {
     Market,
     Treasury,
     Oracle,
+    Wasm,
 }
