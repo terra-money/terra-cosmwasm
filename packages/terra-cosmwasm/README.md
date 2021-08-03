@@ -8,7 +8,7 @@ Add the following to your smart contract's `Cargo.toml`:
 ​
 ```toml
 [dependencies]
-terra-cosmwasm = { version = "1.2" }
+terra-cosmwasm = { version = "2.2" }
 ```
 ​
 ## Contents
