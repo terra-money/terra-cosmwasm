@@ -93,7 +93,8 @@
       "enum": [
         "market",
         "treasury",
-        "oracle"
+        "oracle",
+        "wasm"
       ]
     },
     "Uint128": {

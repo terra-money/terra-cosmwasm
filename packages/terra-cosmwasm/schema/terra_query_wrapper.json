@@ -116,6 +116,26 @@
             }
           },
           "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "contract_info"
+          ],
+          "properties": {
+            "contract_info": {
+              "type": "object",
+              "required": [
+                "contract_address"
+              ],
+              "properties": {
+                "contract_address": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "additionalProperties": false
         }
       ]
     },
@@ -125,7 +145,8 @@
       "enum": [
         "market",
         "treasury",
-        "oracle"
+        "oracle",
+        "wasm"
       ]
     },
     "Uint128": {
