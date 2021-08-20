@@ -499,13 +499,13 @@ mod test {
         // 1/3 (result floored)
         assert_eq!(
             Decimal256::from_ratio(1, 3),
-            Decimal256(0_333_333_333_333_333_333u64.into())
+            Decimal256(333_333_333_333_333_333u64.into())
         );
 
         // 2/3 (result floored)
         assert_eq!(
             Decimal256::from_ratio(2, 3),
-            Decimal256(0_666_666_666_666_666_666u64.into())
+            Decimal256(666_666_666_666_666_666u64.into())
         );
     }
 
@@ -568,15 +568,15 @@ mod test {
         );
         assert_eq!(
             Decimal256::from_str("04.00").unwrap(),
-            Decimal256::percent(0400)
+            Decimal256::percent(400)
         );
         assert_eq!(
             Decimal256::from_str("00.40").unwrap(),
-            Decimal256::percent(0040)
+            Decimal256::percent(40)
         );
         assert_eq!(
             Decimal256::from_str("00.04").unwrap(),
-            Decimal256::percent(0004)
+            Decimal256::percent(4)
         );
 
         // Can handle 18 fractional digits
@@ -684,13 +684,13 @@ mod test {
 
     #[test]
     fn decimal_is_zero_works() {
-        assert_eq!(Decimal256::zero().is_zero(), true);
-        assert_eq!(Decimal256::percent(0).is_zero(), true);
-        assert_eq!(Decimal256::permille(0).is_zero(), true);
+        assert!(Decimal256::zero().is_zero());
+        assert!(Decimal256::percent(0).is_zero());
+        assert!(Decimal256::permille(0).is_zero());
 
-        assert_eq!(Decimal256::one().is_zero(), false);
-        assert_eq!(Decimal256::percent(123).is_zero(), false);
-        assert_eq!(Decimal256::permille(1234).is_zero(), false);
+        assert!(!Decimal256::one().is_zero());
+        assert!(!Decimal256::percent(123).is_zero());
+        assert!(!Decimal256::permille(1234).is_zero());
     }
 
     #[test]
@@ -821,11 +821,11 @@ mod test {
 
     #[test]
     fn uint256_is_zero_works() {
-        assert_eq!(Uint256::zero().is_zero(), true);
-        assert_eq!(Uint256::from(0u64).is_zero(), true);
+        assert!(Uint256::zero().is_zero());
+        assert!(Uint256::from(0u64).is_zero());
 
-        assert_eq!(Uint256::from(1u64).is_zero(), false);
-        assert_eq!(Uint256::from(123u64).is_zero(), false);
+        assert!(!Uint256::from(1u64).is_zero());
+        assert!(!Uint256::from(123u64).is_zero());
     }
 
     #[test]
