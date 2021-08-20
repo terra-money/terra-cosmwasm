@@ -1,6 +1,6 @@
 [package]
 name = "terra-cosmwasm"
-version = "1.2.4"
+version = "2.2.0"
 authors = ["Yun Yeo <YunSuk-Yeo@users.noreply.github.com>", "Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2018"
 description = "Bindings for CosmWasm contracts to call into custom modules of Terra Core"
@@ -8,12 +8,13 @@ repository = "https://github.com/terra-project/terra-cosmwasm"
 license = "Apache-2.0"
 readme = "README.md"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+backtraces = ["cosmwasm-std/backtraces"]
 
 [dependencies]
-cosmwasm-std = "0.10.1"
-schemars = "0.7"
+cosmwasm-std = "0.16.0"
+schemars = "0.8.1"
 serde = { version = "1.0.103", default-features = false, features = ["derive"] }
 
 [dev-dependencies]
-cosmwasm-schema = { version = "0.10.1" }
+cosmwasm-schema = "0.16.0"

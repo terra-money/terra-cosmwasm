@@ -1,8 +1,8 @@
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
-use cosmwasm_std::{Coin, CosmosMsg, HumanAddr};
 use crate::route::TerraRoute;
+use cosmwasm_std::{Coin, CosmosMsg};
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
@@ -13,9 +13,9 @@ pub struct TerraMsgWrapper {
 }
 
 // this is a helper to be able to return these as CosmosMsg easier
-impl Into<CosmosMsg<TerraMsgWrapper>> for TerraMsgWrapper {
-    fn into(self) -> CosmosMsg<TerraMsgWrapper> {
-        CosmosMsg::Custom(self)
+impl From<TerraMsgWrapper> for CosmosMsg<TerraMsgWrapper> {
+    fn from(original: TerraMsgWrapper) -> Self {
+        CosmosMsg::Custom(original)
     }
 }
 
@@ -23,28 +23,21 @@ impl Into<CosmosMsg<TerraMsgWrapper>> for TerraMsgWrapper {
 #[serde(rename_all = "snake_case")]
 pub enum TerraMsg {
     Swap {
-        trader: HumanAddr,
         offer_coin: Coin,
         ask_denom: String,
     },
     SwapSend {
-        from_address: HumanAddr,
-        to_address: HumanAddr,
+        to_address: String,
         offer_coin: Coin,
         ask_denom: String,
     },
 }
 
 // create_swap_msg returns wrapped swap msg
-pub fn create_swap_msg(
-    trader: HumanAddr,
-    offer_coin: Coin,
-    ask_denom: String,
-) -> CosmosMsg<TerraMsgWrapper> {
+pub fn create_swap_msg(offer_coin: Coin, ask_denom: String) -> CosmosMsg<TerraMsgWrapper> {
     TerraMsgWrapper {
         route: TerraRoute::Market,
         msg_data: TerraMsg::Swap {
-            trader,
             offer_coin,
             ask_denom,
         },
@@ -54,15 +47,13 @@ pub fn create_swap_msg(
 
 // create_swap_send_msg returns wrapped swap send msg
 pub fn create_swap_send_msg(
-    from_address: HumanAddr,
-    to_address: HumanAddr,
+    to_address: String,
     offer_coin: Coin,
     ask_denom: String,
 ) -> CosmosMsg<TerraMsgWrapper> {
     TerraMsgWrapper {
         route: TerraRoute::Market,
         msg_data: TerraMsg::SwapSend {
-            from_address,
             to_address,
             offer_coin,
             ask_denom,

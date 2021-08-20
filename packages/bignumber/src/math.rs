@@ -64,12 +64,12 @@ impl From<Decimal> for Decimal256 {
     }
 }
 
-impl Into<Decimal> for Decimal256 {
-    fn into(self) -> Decimal {
-        let U256(ref arr) = self.0;
+impl From<Decimal256> for Decimal {
+    fn from(n: Decimal256) -> Self {
+        let U256(ref arr) = n.0;
         assert!(arr[2] == 0u64);
         assert!(arr[3] == 0u64);
-        Decimal::from_str(&self.to_string()).unwrap()
+        Decimal::from_str(&n.to_string()).unwrap()
     }
 }
 
@@ -238,6 +238,12 @@ impl From<U256> for Uint256 {
     }
 }
 
+impl From<Uint256> for U256 {
+    fn from(val: Uint256) -> Self {
+        val.0
+    }
+}
+
 #[inline(always)]
 fn split_u128(a: u128) -> (u64, u64) {
     ((a >> 64) as _, (a & 0xFFFFFFFFFFFFFFFF) as _)
@@ -283,15 +289,15 @@ impl FromStr for Uint256 {
     }
 }
 
-impl Into<String> for Uint256 {
-    fn into(self) -> String {
-        self.0.to_string()
+impl From<Uint256> for String {
+    fn from(n: Uint256) -> Self {
+        n.0.to_string()
     }
 }
 
-impl Into<u128> for Uint256 {
-    fn into(self) -> u128 {
-        let U256(ref arr) = self.0;
+impl From<Uint256> for u128 {
+    fn from(n: Uint256) -> Self {
+        let U256(ref arr) = n.0;
         assert!(arr[2] == 0u64);
         assert!(arr[3] == 0u64);
 
@@ -300,9 +306,10 @@ impl Into<u128> for Uint256 {
     }
 }
 
-impl Into<Uint128> for Uint256 {
-    fn into(self) -> Uint128 {
-        Uint128(self.into())
+impl From<Uint256> for Uint128 {
+    fn from(n: Uint256) -> Self {
+        let num: u128 = n.into();
+        Uint128::from(num)
     }
 }
 
