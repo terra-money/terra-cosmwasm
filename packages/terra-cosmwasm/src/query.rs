@@ -34,6 +34,9 @@ pub enum TerraQuery {
     ContractInfo {
         contract_address: String,
     },
+    Total {
+        denom: String,
+    },
 }
 
 /// SwapResponse is data format returned from SwapRequest::Simulate query
@@ -75,4 +78,11 @@ pub struct ContractInfoResponse {
     pub creator: String,
     pub code_id: u64,
     pub admin: Option<String>,
+}
+
+/// BankTotalResponse is data format returned from Bank::Total query
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct BankTotalResponse {
+    pub denom: String,
+    pub amount: Uint128,
 }
