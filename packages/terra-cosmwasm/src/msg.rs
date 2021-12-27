@@ -12,6 +12,9 @@ pub struct TerraMsgWrapper {
     pub msg_data: TerraMsg,
 }
 
+// define trait bound
+impl cosmwasm_std::CustomMsg for TerraMsgWrapper {}
+
 // this is a helper to be able to return these as CosmosMsg easier
 impl From<TerraMsgWrapper> for CosmosMsg<TerraMsgWrapper> {
     fn from(original: TerraMsgWrapper) -> Self {

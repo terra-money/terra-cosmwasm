@@ -8,11 +8,11 @@ use crate::route::TerraRoute;
 
 /// This is a helper wrapper to easily use our custom queries
 pub struct TerraQuerier<'a> {
-    querier: &'a QuerierWrapper<'a>,
+    querier: &'a QuerierWrapper<'a, TerraQueryWrapper>,
 }
 
 impl<'a> TerraQuerier<'a> {
-    pub fn new(querier: &'a QuerierWrapper<'a>) -> Self {
+    pub fn new(querier: &'a QuerierWrapper<'a, TerraQueryWrapper>) -> Self {
         TerraQuerier { querier }
     }
 
@@ -30,7 +30,7 @@ impl<'a> TerraQuerier<'a> {
         }
         .into();
 
-        self.querier.custom_query(&request)
+        self.querier.query(&request)
     }
 
     pub fn query_tax_cap<T: Into<String>>(&self, denom: T) -> StdResult<TaxCapResponse> {
@@ -42,7 +42,7 @@ impl<'a> TerraQuerier<'a> {
         }
         .into();
 
-        self.querier.custom_query(&request)
+        self.querier.query(&request)
     }
 
     pub fn query_tax_rate(&self) -> StdResult<TaxRateResponse> {
@@ -52,7 +52,7 @@ impl<'a> TerraQuerier<'a> {
         }
         .into();
 
-        self.querier.custom_query(&request)
+        self.querier.query(&request)
     }
 
     pub fn query_exchange_rates<T: Into<String>>(
@@ -69,7 +69,7 @@ impl<'a> TerraQuerier<'a> {
         }
         .into();
 
-        self.querier.custom_query(&request)
+        self.querier.query(&request)
     }
 
     pub fn query_contract_info<T: Into<String>>(
@@ -84,6 +84,6 @@ impl<'a> TerraQuerier<'a> {
         }
         .into();
 
-        self.querier.custom_query(&request)
+        self.querier.query(&request)
     }
 }
