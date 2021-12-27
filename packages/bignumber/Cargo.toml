@@ -1,6 +1,6 @@
 [package]
 name = "cosmwasm-bignumber"
-version = "3.0.0-beta"
+version = "3.0.0-beta.0"
 authors = ["Terraform Labs, PTE."]
 edition = "2018"
 description = "Bignumber library for cosmwasm project"

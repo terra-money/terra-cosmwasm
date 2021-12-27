@@ -17,7 +17,7 @@ backtraces = ["cosmwasm-std/backtraces"]
 library = []
 
 [dependencies]
-terra-cosmwasm = { path = "../../packages/terra-cosmwasm", version = "3.0.0-beta" }
+terra-cosmwasm = { path = "../../packages/terra-cosmwasm", version = "3.0.0-beta.0" }
 cosmwasm-std = { version = "1.0.0-beta" }
 cosmwasm-storage = { version = "1.0.0-beta" }
 schemars = "0.8.1"

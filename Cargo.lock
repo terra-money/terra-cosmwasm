@@ -61,7 +61,7 @@ checksum = "44c32f031ea41b4291d695026c023b95d59db2d8a2c7640800ed56bc8f510f22"
 
 [[package]]
 name = "cosmwasm-bignumber"
-version = "3.0.0-beta"
+version = "3.0.0-beta.0"
 dependencies = [
  "bigint",
  "cosmwasm-schema",
@@ -557,7 +557,7 @@ dependencies = [
 
 [[package]]
 name = "terra-cosmwasm"
-version = "3.0.0-beta"
+version = "3.0.0-beta.0"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
