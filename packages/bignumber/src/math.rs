@@ -397,8 +397,8 @@ impl ops::Mul<Uint256> for Decimal256 {
 
 impl Uint256 {
     /// returns self * nom / denom
-    pub fn multiply_ratio<A: Into<U256>, B: Into<U256>>(&self, nom: A, denom: B) -> Uint256 {
-        let numerator: U256 = nom.into();
+    pub fn multiply_ratio<A: Into<U256>, B: Into<U256>>(&self, num: A, denom: B) -> Uint256 {
+        let numerator: U256 = num.into();
         let denominator: U256 = denom.into();
         if denominator.is_zero() {
             panic!("Denominator must not be zero");
