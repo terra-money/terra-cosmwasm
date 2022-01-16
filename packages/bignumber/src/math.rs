@@ -37,15 +37,15 @@ impl Decimal256 {
         Decimal256(U256::from(x) * U256::from(1_000_000_000_000_000u64))
     }
 
-    /// Returns the ratio (nominator / denominator) as a Decimal256
-    pub fn from_ratio<A: Into<U256>, B: Into<U256>>(nominator: A, denominator: B) -> Decimal256 {
-        let nominator: U256 = nominator.into();
+    /// Returns the ratio (numerator / denominator) as a Decimal256
+    pub fn from_ratio<A: Into<U256>, B: Into<U256>>(numerator: A, denominator: B) -> Decimal256 {
+        let numerator: U256 = numerator.into();
         let denominator: U256 = denominator.into();
         if denominator.is_zero() {
             panic!("Denominator must not be zero");
         }
 
-        Decimal256(nominator * Decimal256::DECIMAL_FRACTIONAL / denominator)
+        Decimal256(numerator * Decimal256::DECIMAL_FRACTIONAL / denominator)
     }
 
     pub fn from_uint256<A: Into<Uint256>>(val: A) -> Decimal256 {
@@ -398,14 +398,14 @@ impl ops::Mul<Uint256> for Decimal256 {
 impl Uint256 {
     /// returns self * nom / denom
     pub fn multiply_ratio<A: Into<U256>, B: Into<U256>>(&self, nom: A, denom: B) -> Uint256 {
-        let nominator: U256 = nom.into();
+        let numerator: U256 = nom.into();
         let denominator: U256 = denom.into();
         if denominator.is_zero() {
             panic!("Denominator must not be zero");
         }
 
         // TODO: minimize rounding that takes place (using gcd algorithm)
-        let val = self.0 * nominator / denominator;
+        let val = self.0 * numerator / denominator;
         Uint256::from(val)
     }
 }
